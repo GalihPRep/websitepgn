@@ -290,7 +290,7 @@
     const listContainer = document.getElementById('plotList');
     document.getElementById('fetchSpikesButton').addEventListener('click', () => {
         fetchSpikesDialog.showModal();
-        fetch(`{% url 'cl_seiscomp:fetch_plots' %}`)
+        if (listContainer.innerHTML == "") fetch(`{% url 'cl_seiscomp:fetch_plots' %}`)
             .then(response => response.text())
             .then(data => {
                 JSON.parse(data).urls.forEach(post => {
