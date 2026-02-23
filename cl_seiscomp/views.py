@@ -780,16 +780,15 @@ def export_cs_to_csv(request):
             content_type='text/plain'
         )
 
+# django passing obspy plot to html
+from pathlib import Path
 def fetch_plots(request):
     """Fetches the Z component plots from Indonesian stations."""
-    urls = [
-        "Under construction!",
-        "Come here next time!",
-        "Bye!",
-        "But anyway.",
-        "We need to add more lines.",
-        "Why?",
-        "We need to know something.",
-        "Is the scroll working?"
-    ]
-    return JsonResponse({"urls": urls})
+    figs = []
+    directory_path = './media/cl_seiscomp/shifts'
+    for entry in os.listdir(directory_path):
+        full_path = os.path.join(directory_path, entry)
+        if os.path.isfile(full_path):
+            figs.append(full_path)
+    figs.sort()
+    return JsonResponse({"figs": figs})
