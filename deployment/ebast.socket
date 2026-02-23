@@ -2,7 +2,7 @@
 Description=ebast
 
 [Socket]
-ListenStream=/run/ebast.sock
+ListenStream=http://127.0.0.1:8070
 
 [Install]
 WantedBy=sockets.target

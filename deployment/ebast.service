@@ -1,0 +1,16 @@
+[Unit]
+Description=Gunicorn daemon for ebast application
+Requires=/home/sysop/Documents/Work/ebast/deployment/ebast.socket
+After=network.target
+
+[Service]
+User=sysop
+Group=www-data
+WorkingDirectory=/home/sysop/Documents/Work/ebast
+ExecStart=/usr/bin/gunicorn \
+          --access-logfile - \
+          --workers 3 \
+          ebast.wsgi:application
+
+[Install]
+WantedBy=multi-user.target

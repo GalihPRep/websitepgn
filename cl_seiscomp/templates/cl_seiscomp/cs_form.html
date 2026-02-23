@@ -73,6 +73,8 @@
                 <div class="form-group col-md-12">
                     <button type="button" class="btn btn-primary" id="fetchDataButton">Fetch gaps and blanks</button>
                     &emsp;
+                    <button type="button" class="btn btn-primary" id="fetchSpikesButton">Fetch spikes</button>
+                    &emsp;
                     <input type="checkbox" id="fetchSpikesCheckbox">
                     &nbsp;
                     <label>Deteksi <i>baseline shift spikes</i> (eksperimental)</p>
@@ -279,7 +281,28 @@
         </script>
     </div>
 </div>
+<dialog id="fetchSpikesDialog">
+    <h2>Stations</h2>
+    <ul id="plotList"></ul>
+    <button id="saveSpikesButton">Close</button>
+</dialog>
 <script>
+    const listContainer = document.getElementById('plotList');
+    document.getElementById('fetchSpikesButton').addEventListener('click', () => {
+        fetchSpikesDialog.showModal();
+        fetch(`{% url 'cl_seiscomp:fetch_plots' %}`)
+            .then(response => response.text())
+            .then(data => {
+                JSON.parse(data).urls.forEach(post => {
+                    const listItem = document.createElement('li');
+                    listItem.innerText = post;
+                    listContainer.append(listItem);
+                });
+            }).catch(error => {
+                // Handle any errors that occurred during the fetch operation
+                console.warn('Something went wrong:', error);
+            });
+    });
     // Handle form validation errors
     document.addEventListener('DOMContentLoaded', function () {
         const formErrors = document.getElementById('form-errors');
@@ -329,6 +352,12 @@
                 }
             }
         }
+    });
+    // Fetching the station plots.
+    const saveSpikesButton = document.getElementById('saveSpikesButton');
+    const fetchSpikesDialog = document.getElementById('fetchSpikesDialog');
+    saveSpikesButton.addEventListener('click', () => {
+        fetchSpikesDialog.close();
     });
 </script>
 {% endblock %}

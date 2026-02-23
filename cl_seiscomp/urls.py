@@ -1,7 +1,7 @@
 from django.views import View
 from django.http import HttpResponse
 from django.urls import path
-from .views import CsListView, StationListView, StationCreateView, StationUpdateView, StationDeleteView, StationBulkCreateView, CsCreateView, CsUpdateView, CsDeleteView, export_to_excel, export_to_pdf, fetch_gaps_blanks, export_cs_to_csv
+from .views import CsListView, StationListView, StationCreateView, StationUpdateView, StationDeleteView, StationBulkCreateView, CsCreateView, CsUpdateView, CsDeleteView, export_to_excel, export_to_pdf, fetch_gaps_blanks, export_cs_to_csv, fetch_plots
 from . import views
 
 app_name = 'cl_seiscomp'
@@ -22,5 +22,6 @@ urlpatterns = [
     path('api/export-to-pdf/<int:record_id>/', export_to_pdf, name='export_to_pdf'),
     path('api/export-csv/', export_cs_to_csv, name='export_cs_to_csv'),
     path('cs/fetch_gaps_blanks/', fetch_gaps_blanks, name='fetch_gaps_blanks'),
+    path('cs/fetch_plots/', fetch_plots, name='fetch_plots'),
     path('stats/', views.StatsView.as_view(), name='stats'),
 ]

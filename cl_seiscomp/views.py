@@ -779,3 +779,12 @@ def export_cs_to_csv(request):
             status=500,
             content_type='text/plain'
         )
+
+def fetch_plots(request):
+    """Fetches the Z component plots from Indonesian stations."""
+    urls = [
+        "Under construction!",
+        "Come here next time!",
+        "Bye!"
+    ]
+    return JsonResponse({"urls": urls})
