@@ -785,6 +785,11 @@ def fetch_plots(request):
     urls = [
         "Under construction!",
         "Come here next time!",
-        "Bye!"
+        "Bye!",
+        "But anyway.",
+        "We need to add more lines.",
+        "Why?",
+        "We need to know something.",
+        "Is the scroll working?"
     ]
     return JsonResponse({"urls": urls})
