@@ -286,13 +286,13 @@
     <div id="plotList" class="scroll-box"></div>
     <style>
         .scroll-box {
-            border: 1px solid black;
-            width: 300px;
-            height: 150px;
+            width: min-content;
+            height: 300px;
             overflow: auto;
         }
     </style>
-    <button id="saveSpikesButton">Close</button>
+    <br/>
+    <button id="saveSpikesButton" type="button" class="btn btn-primary">Close</button>
 </dialog>
 <script>
     const listContainer = document.getElementById('plotList');
@@ -303,9 +303,9 @@
             .then(data => {
                 console.log(data)
                 JSON.parse(data).figs.forEach(post => {
-                    const listItem = document.createElement('div');
-                    listItem.innerText = post;
-                    listContainer.appendChild(listItem);
+                    // const listItem = document.createElement('div');
+                    // listItem.innerText = post;
+                    // listContainer.appendChild(listItem);
                     const listImage = document.createElement('img');
                     listImage.src = `../../../${post}`;
                     listContainer.appendChild(listImage);
