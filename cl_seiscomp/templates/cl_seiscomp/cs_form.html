@@ -283,9 +283,7 @@
 </div>
 <dialog id="fetchSpikesDialog">
     <h2>Stations</h2>
-    <div class="scroll-box">
-        <ul id="plotList"></ul>
-    </div>
+    <div id="plotList" class="scroll-box"></div>
     <style>
         .scroll-box {
             border: 1px solid black;
@@ -304,9 +302,9 @@
             .then(response => response.text())
             .then(data => {
                 JSON.parse(data).urls.forEach(post => {
-                    const listItem = document.createElement('li');
+                    const listItem = document.createElement('div');
                     listItem.innerText = post;
-                    listContainer.append(listItem);
+                    listContainer.appendChild(listItem);
                 });
             }).catch(error => {
                 // Handle any errors that occurred during the fetch operation
