@@ -306,11 +306,13 @@
 <script>
     const listContainer = document.getElementById('plotList');
     document.getElementById('fetchSpikesButton').addEventListener('click', () => {
+        if (listContainer.innerHTML != "") listContainer.innerHTML = "";
         fetchSpikesDialog.showModal();
-        if (listContainer.innerHTML == "") fetch(`{% url 'cl_seiscomp:fetch_plots' %}`)
+        fetch(`{% url 'cl_seiscomp:fetch_plots' %}`)
             .then(response => response.text())
             .then(data => {
                 console.log(data)
+                
                 JSON.parse(data).figs.forEach(post => {
                     // const listItem = document.createElement('div');
                     // listItem.innerText = post;
