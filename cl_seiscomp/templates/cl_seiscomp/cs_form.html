@@ -296,7 +296,11 @@
     <br/>
     <div>
         <button id="save-spikes-button" type="button" class="btn btn-primary">
-            Close
+            Save
+        </button>
+        &emsp;
+        <button id="delete-spikes-button" type="button" class="btn btn-primary">
+            Delete
         </button>
         &emsp;
         <span id="fetch-spikes-list"></span>
@@ -415,9 +419,15 @@
     });
     // Fetching the station plots.
     const saveSpikesButton = document.getElementById('save-spikes-button');
+    const deleteSpikesButton = document.getElementById('delete-spikes-button');
     const fetchSpikesDialog = document.getElementById('fetch-spikes-dialog');
     saveSpikesButton.addEventListener('click', () => {
         fetchSpikesDialog.close();
     });
+    deleteSpikesButton.addEventListener("click", () => {
+        const lisTex = document.getElementById('fetch-spikes-list');
+        lisTex.innerText = "";
+        fetchSpikesDialog.close();
+    })
 </script>
 {% endblock %}
