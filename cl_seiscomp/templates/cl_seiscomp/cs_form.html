@@ -82,7 +82,7 @@
                 <div class="form-group col-md-12">
                     <button type="button" class="btn btn-primary" id="fetchDataButton">Fetch gaps and blanks</button>
                     &emsp;
-                    <button type="button" class="btn btn-primary" id="fetchSpikesButton">Fetch spikes</button>
+                    <button type="button" class="btn btn-primary" id="fetch-spikes-button">Fetch spikes</button>
                     &emsp;
                     <input type="checkbox" id="fetchSpikesCheckbox">
                     &nbsp;
@@ -290,9 +290,9 @@
         </script>
     </div>
 </div>
-<dialog id="fetchSpikesDialog">
+<dialog id="fetch-spikes-dialog">
     <h2>Stations</h2>
-    <div id="plotList" class="scroll-box"></div>
+    <div id="plot-list" class="scroll-box"></div>
     <style>
         .scroll-box {
             width: min-content;
@@ -301,43 +301,44 @@
         }
     </style>
     <br/>
-    <button id="saveSpikesButton" type="button" class="btn btn-primary">Close</button>
+    <button id="save-spikes-button" type="button" class="btn btn-primary">Close</button>
 </dialog>
 <script>
-    const listContainer = document.getElementById('plotList');
-    document.getElementById('fetchSpikesButton').addEventListener('click', () => {
-        if (listContainer.innerHTML != "") listContainer.innerHTML = "";
+    const lisCon = document.getElementById('plot-list');
+    document.getElementById('fetch-spikes-button').addEventListener('click', () => {
+        if (lisCon.innerHTML != "") lisCon.innerHTML = "";
         fetchSpikesDialog.showModal();
         fetch(`{% url 'cl_seiscomp:fetch_plots' %}`)
             .then(response => response.text())
             .then(data => {
-                JSON.parse(data).figs.forEach(post => {
-                    const nam = post.split("/").reverse()[0].split(".")[0];
-                    const listLin = document.createElement("a");
-                    const listStu = document.createElement('div');
-                    const listNam = document.createElement('span');
-                    const listIma = document.createElement('img');
-                    const listNamDiv = document.createElement("div");
-                    const listImaDiv = document.createElement("div");
-                    listLin.id = `lin-${nam}`
-                    listStu.style.display = "flex";
-                    listStu.style.flexDirection = "row";
-                    listNamDiv.style.flex = "1 0 60px";
-                    listImaDiv.style.flex = "1 0 800px";
-                    listIma.src = `../../../${post}`;
-                    listNam.textContent = nam;
-                    listContainer.appendChild(listLin);
-                    listLin.appendChild(listStu);
-                    listStu.appendChild(listNamDiv);
-                    listStu.appendChild(listImaDiv);
-                    listNamDiv.appendChild(listNam);
-                    listImaDiv.appendChild(listIma);
+                JSON.parse(data).figs.forEach(pos => {
+                    const nam = pos.split("/").reverse()[0].split(".")[0];
+                    const lisLin = document.createElement("a");
+                    const lisStu = document.createElement('div');
+                    const lisNam = document.createElement('span');
+                    const lisIma = document.createElement('img');
+                    const lisNamDiv = document.createElement("div");
+                    const lisImaDiv = document.createElement("div");
+                    lisLin.id = `lin-${nam}`
+                    lisStu.style.display = "flex";
+                    lisStu.style.flexDirection = "row";
+                    lisNamDiv.style.flex = "1 0 60px";
+                    lisImaDiv.style.flex = "1 0 800px";
+                    lisIma.src = `../../../${pos}`;
+                    lisNam.textContent = nam;
+                    lisCon.appendChild(lisLin);
+                    lisLin.appendChild(lisStu);
+                    lisStu.appendChild(lisNamDiv);
+                    lisStu.appendChild(lisImaDiv);
+                    lisNamDiv.appendChild(lisNam);
+                    lisImaDiv.appendChild(lisIma);
                 });
             }).catch(error => {
                 // Handle any errors that occurred during the fetch operation
                 console.warn('Something went wrong:', error);
             });
     });
+
     // Handle form validation errors
     document.addEventListener('DOMContentLoaded', function () {
         const formErrors = document.getElementById('form-errors');
@@ -389,8 +390,8 @@
         }
     });
     // Fetching the station plots.
-    const saveSpikesButton = document.getElementById('saveSpikesButton');
-    const fetchSpikesDialog = document.getElementById('fetchSpikesDialog');
+    const saveSpikesButton = document.getElementById('save-spikes-button');
+    const fetchSpikesDialog = document.getElementById('fetch-spikes-dialog');
     saveSpikesButton.addEventListener('click', () => {
         fetchSpikesDialog.close();
     });
