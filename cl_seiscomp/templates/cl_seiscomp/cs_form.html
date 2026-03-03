@@ -353,6 +353,7 @@
                                     .replace(nam, "")
                                     .replace(", ,", ",")
                                     .replace(/, $/, "")
+                                    .replace(/^, /, "")
                                 lisTex.innerText = lisTexRep;
                             } else lisTex.innerText += `, ${nam}`;
                         })
