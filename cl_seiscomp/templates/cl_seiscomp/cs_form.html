@@ -314,12 +314,27 @@
                 console.log(data)
                 
                 JSON.parse(data).figs.forEach(post => {
-                    // const listItem = document.createElement('div');
-                    // listItem.innerText = post;
-                    // listContainer.appendChild(listItem);
-                    const listImage = document.createElement('img');
-                    listImage.src = `../../../${post}`;
-                    listContainer.appendChild(listImage);
+                    const listLin = document.createElement("a");
+                    const listStu = document.createElement('div');
+                    const listNam = document.createElement('span');
+                    const listIma = document.createElement('img');
+                    const listNamDiv = document.createElement("div");
+                    const listImaDiv = document.createElement("div");
+                    listStu.style.display = "flex";
+                    listStu.style.flexDirection = "row";
+                    listNamDiv.style.flex = "1 0 60px";
+                    listImaDiv.style.flex = "1 0 800px";
+                    listIma.src = `../../../${post}`;
+                    listNam.textContent = post
+                        .split("/")
+                        .reverse()[0]
+                        .split(".")[0];
+                    listContainer.appendChild(listLin);
+                    listLin.appendChild(listStu);
+                    listStu.appendChild(listNamDiv);
+                    listStu.appendChild(listImaDiv);
+                    listNamDiv.appendChild(listNam);
+                    listImaDiv.appendChild(listIma);
                 });
             }).catch(error => {
                 // Handle any errors that occurred during the fetch operation
