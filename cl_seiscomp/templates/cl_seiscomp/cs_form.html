@@ -346,8 +346,15 @@
                         document.getElementById(x).addEventListener("click", () => {
                             const nam = x.split("-")[1];
                             if (lisTex.innerText == "")
-                                lisTex.innerText = nam;             
-                            else lisTex.innerText += `, ${nam}`;
+                                lisTex.innerText = nam;
+                            else if (lisTex.innerText.includes(nam)) {
+                                const lisTexRep = lisTex
+                                    .innerText
+                                    .replace(nam, "")
+                                    .replace(", ,", ",")
+                                    .replace(/, $/, "")
+                                lisTex.innerText = lisTexRep;
+                            } else lisTex.innerText += `, ${nam}`;
                         })
                     })
             }).catch(error => {
