@@ -105,7 +105,9 @@
                                 lastUpdate.innerHTML = `Last Update: <strong>${data.last_update}</strong>`;
                                 gapsField.value = data.gaps;
                                 blanksField.value = data.blanks;
-                                spikesField.value = spikesFetch ? data.spikes : [];
+                                spikesField.value = spikesFetch 
+                                    ? data.spikes 
+                                    : spikesField.value;
                             })
                             .catch(error => console.error('Error fetching data:', error));
                     });
@@ -295,12 +297,12 @@
     <div id="plot-list" class="scroll-box"></div>
     <br/>
     <div>
-        <button id="save-spikes-button" type="button" class="btn btn-primary">
-            Save
-        </button>
-        &emsp;
         <button id="delete-spikes-button" type="button" class="btn btn-primary">
             Delete
+        </button>
+        &emsp;
+        <button id="save-spikes-button" type="button" class="btn btn-primary">
+            Save
         </button>
         &emsp;
         <span id="fetch-spikes-list"></span>
@@ -423,6 +425,12 @@
     const fetchSpikesDialog = document.getElementById('fetch-spikes-dialog');
     saveSpikesButton.addEventListener('click', () => {
         fetchSpikesDialog.close();
+        const spikesField = document.getElementById('{{ form.spikes.id_for_label }}');
+        spikesField.value = document
+            .getElementById('fetch-spikes-list')
+            .innerText
+            .split(", ")
+            .join("\n")
     });
     deleteSpikesButton.addEventListener("click", () => {
         const lisTex = document.getElementById('fetch-spikes-list');
