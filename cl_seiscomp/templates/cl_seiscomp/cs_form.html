@@ -293,6 +293,14 @@
 <dialog id="fetch-spikes-dialog">
     <h2>Stations</h2>
     <div id="plot-list" class="scroll-box"></div>
+    <br/>
+    <div>
+        <button id="save-spikes-button" type="button" class="btn btn-primary">
+            Close
+        </button>
+        &emsp;
+        <span id="fetch-spikes-list"></span>
+    </div>
     <style>
         .scroll-box {
             width: min-content;
@@ -300,8 +308,6 @@
             overflow: auto;
         }
     </style>
-    <br/>
-    <button id="save-spikes-button" type="button" class="btn btn-primary">Close</button>
 </dialog>
 <script>
     const lisCon = document.getElementById('plot-list');
@@ -333,12 +339,15 @@
                     lisNamDiv.appendChild(lisNam);
                     lisImaDiv.appendChild(lisIma);
                 });
+                const lisTex = document.getElementById('fetch-spikes-list');
                 Array.from(lisCon.querySelectorAll('a[id]'))
                     .map(x => x.id)
                     .forEach((x) => {
                         document.getElementById(x).addEventListener("click", () => {
                             const nam = x.split("-")[1];
-                            console.log(nam);
+                            if (lisTex.innerText == "")
+                                lisTex.innerText = nam;             
+                            else lisTex.innerText += `, ${nam}`;
                         })
                     })
             }).catch(error => {
