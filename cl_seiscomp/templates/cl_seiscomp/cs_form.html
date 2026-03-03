@@ -311,24 +311,21 @@
         fetch(`{% url 'cl_seiscomp:fetch_plots' %}`)
             .then(response => response.text())
             .then(data => {
-                console.log(data)
-                
                 JSON.parse(data).figs.forEach(post => {
+                    const nam = post.split("/").reverse()[0].split(".")[0];
                     const listLin = document.createElement("a");
                     const listStu = document.createElement('div');
                     const listNam = document.createElement('span');
                     const listIma = document.createElement('img');
                     const listNamDiv = document.createElement("div");
                     const listImaDiv = document.createElement("div");
+                    listLin.id = `lin-${nam}`
                     listStu.style.display = "flex";
                     listStu.style.flexDirection = "row";
                     listNamDiv.style.flex = "1 0 60px";
                     listImaDiv.style.flex = "1 0 800px";
                     listIma.src = `../../../${post}`;
-                    listNam.textContent = post
-                        .split("/")
-                        .reverse()[0]
-                        .split(".")[0];
+                    listNam.textContent = nam;
                     listContainer.appendChild(listLin);
                     listLin.appendChild(listStu);
                     listStu.appendChild(listNamDiv);
