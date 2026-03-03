@@ -319,7 +319,7 @@
                     const lisIma = document.createElement('img');
                     const lisNamDiv = document.createElement("div");
                     const lisImaDiv = document.createElement("div");
-                    lisLin.id = `lin-${nam}`
+                    lisLin.id = `plot-${nam}`
                     lisStu.style.display = "flex";
                     lisStu.style.flexDirection = "row";
                     lisNamDiv.style.flex = "1 0 60px";
@@ -333,12 +333,19 @@
                     lisNamDiv.appendChild(lisNam);
                     lisImaDiv.appendChild(lisIma);
                 });
+                Array.from(lisCon.querySelectorAll('a[id]'))
+                    .map(x => x.id)
+                    .forEach((x) => {
+                        document.getElementById(x).addEventListener("click", () => {
+                            const nam = x.split("-")[1];
+                            console.log(nam);
+                        })
+                    })
             }).catch(error => {
                 // Handle any errors that occurred during the fetch operation
                 console.warn('Something went wrong:', error);
             });
     });
-
     // Handle form validation errors
     document.addEventListener('DOMContentLoaded', function () {
         const formErrors = document.getElementById('form-errors');
