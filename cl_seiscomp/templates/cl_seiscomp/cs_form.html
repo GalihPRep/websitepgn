@@ -332,6 +332,7 @@
                     const lisNamDiv = document.createElement("div");
                     const lisImaDiv = document.createElement("div");
                     lisLin.id = `plot-${nam}`
+                    lisStu.id = `cont-${nam}`
                     lisStu.style.display = "flex";
                     lisStu.style.flexDirection = "row";
                     lisNamDiv.style.flex = "1 0 60px";
@@ -351,9 +352,12 @@
                     .forEach((x) => {
                         document.getElementById(x).addEventListener("click", () => {
                             const nme = x.split("-")[1];
-                            if (lisTex.innerText == "")
+                            const stu = document.getElementById(`cont-${nme}`);
+                            if (lisTex.innerText == "") {
+                                stu.style.backgroundColor = "#c0c0e0"
                                 lisTex.innerText = nme;
-                            else if (lisTex.innerText.includes(nme)) {
+                            } else if (lisTex.innerText.includes(nme)) {
+                                stu.style.backgroundColor = ""
                                 const lisTexRep = lisTex
                                     .innerText
                                     .replace(nme, "")
@@ -361,7 +365,10 @@
                                     .replace(/, $/, "")
                                     .replace(/^, /, "")
                                 lisTex.innerText = lisTexRep;
-                            } else lisTex.innerText += `, ${nme}`;
+                            } else {
+                                stu.style.backgroundColor = "#c0c0e0"
+                                lisTex.innerText += `, ${nme}`;
+                            }
                         })
                     })
             }).catch(error => {
@@ -425,16 +432,14 @@
     const fetchSpikesDialog = document.getElementById('fetch-spikes-dialog');
     saveSpikesButton.addEventListener('click', () => {
         fetchSpikesDialog.close();
-        const spikesField = document.getElementById('{{ form.spikes.id_for_label }}');
-        spikesField.value = document
+        document.getElementById('{{ form.spikes.id_for_label }}').value = document
             .getElementById('fetch-spikes-list')
             .innerText
             .split(", ")
-            .join("\n")
+            .join("\n");
     });
     deleteSpikesButton.addEventListener("click", () => {
-        const lisTex = document.getElementById('fetch-spikes-list');
-        lisTex.innerText = "";
+        document.getElementById('fetch-spikes-list').innerText = "";
         fetchSpikesDialog.close();
     })
 </script>
