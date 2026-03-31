@@ -350,18 +350,18 @@
                     .map(x => x.id)
                     .forEach((x) => {
                         document.getElementById(x).addEventListener("click", () => {
-                            const nam = x.split("-")[1];
+                            const nme = x.split("-")[1];
                             if (lisTex.innerText == "")
-                                lisTex.innerText = nam;
-                            else if (lisTex.innerText.includes(nam)) {
+                                lisTex.innerText = nme;
+                            else if (lisTex.innerText.includes(nme)) {
                                 const lisTexRep = lisTex
                                     .innerText
-                                    .replace(nam, "")
+                                    .replace(nme, "")
                                     .replace(", ,", ",")
                                     .replace(/, $/, "")
                                     .replace(/^, /, "")
                                 lisTex.innerText = lisTexRep;
-                            } else lisTex.innerText += `, ${nam}`;
+                            } else lisTex.innerText += `, ${nme}`;
                         })
                     })
             }).catch(error => {
