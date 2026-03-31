@@ -9,7 +9,9 @@
     margin-bottom: -20px;
     border-radius: 10px;
 ">
-    Berikan tanggapan terkait fitur deteksi <i>spike</i> <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnar8jKINXJiLFg9q6ID0C-Y0wPEn-oDIJ5wOEDXSIrzTw2Q/viewform?usp=dialog" target="_blank" rel="noopener noreferrer">di sini</a>.
+    Berikan tanggapan terkait fitur deteksi <i>spike</i> <a
+        href="https://docs.google.com/forms/d/e/1FAIpQLSdnar8jKINXJiLFg9q6ID0C-Y0wPEn-oDIJ5wOEDXSIrzTw2Q/viewform?usp=dialog"
+        target="_blank" rel="noopener noreferrer">di sini</a>.
 </div>
 <div class="form-container">
     <div class="container">
@@ -105,8 +107,8 @@
                                 lastUpdate.innerHTML = `Last Update: <strong>${data.last_update}</strong>`;
                                 gapsField.value = data.gaps;
                                 blanksField.value = data.blanks;
-                                spikesField.value = spikesFetch 
-                                    ? data.spikes 
+                                spikesField.value = spikesFetch
+                                    ? data.spikes
                                     : spikesField.value;
                             })
                             .catch(error => console.error('Error fetching data:', error));
@@ -295,7 +297,7 @@
 <dialog id="fetch-spikes-dialog">
     <h2>Stations</h2>
     <div id="plot-list" class="scroll-box"></div>
-    <br/>
+    <br />
     <div>
         <button id="delete-spikes-button" type="button" class="btn btn-primary">
             Delete
@@ -345,6 +347,14 @@
                     lisStu.appendChild(lisImaDiv);
                     lisNamDiv.appendChild(lisNam);
                     lisImaDiv.appendChild(lisIma);
+                    const inpTxt = document
+                        .getElementById('{{ form.spikes.id_for_label }}');
+                    if (inpTxt.value.includes(nam)) {
+                        lisStu.style.backgroundColor = "#c0c0e0";
+                        const lisTxt = document.getElementById('fetch-spikes-list');
+                        if (lisTxt.innerText == "") lisTxt.innerText = nam;
+                        else lisTxt.innerText += `, ${nam}`;
+                    }
                 });
                 const lisTex = document.getElementById('fetch-spikes-list');
                 Array.from(lisCon.querySelectorAll('a[id]'))
